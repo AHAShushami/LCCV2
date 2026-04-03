@@ -1,5 +1,5 @@
 // Konfigurasi Google Sheets (Gantikan dengan URL Web App anda)
-const GOOGLE_SHEET_WEB_APP_URL = "LETAK_URL_DI_SINI";
+const GOOGLE_SHEET_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxXgg-1o0IDo3QyQs0LDWytGbkjblnpODSW16FLfTMjg9TuUnQwfs15DEYKVfGhsgur/exec";
 
 // Struktur Data dan Faktor Pelepasan
 const EMISSION_FACTORS = {
