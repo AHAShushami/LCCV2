@@ -962,14 +962,15 @@ async function sendToGoogleSheet() {
             dataMentahJSON: JSON.stringify(formData)
         };
 
-        // --- KEMASKINI BAHAGIAN INI (Fetch API) ---
-        // Menggunakan text/plain untuk mengelak sekatan CORS ketat oleh Google
+        // --- KEMASKINI BAHAGIAN INI (Fetch API guna URLSearchParams) ---
+        const urlEncodedData = new URLSearchParams(sheetPayload).toString();
+
         const response = await fetch(GOOGLE_SHEET_WEB_APP_URL, {
             method: 'POST',
             headers: {
-                'Content-Type': 'text/plain;charset=utf-8', 
+                'Content-Type': 'application/x-www-form-urlencoded', 
             },
-            body: JSON.stringify(sheetPayload)
+            body: urlEncodedData
         });
         
         // Membaca respons JSON dari Google Apps Script (Code.gs)
@@ -991,3 +992,6 @@ async function sendToGoogleSheet() {
         btn.disabled = false;
     }
 }
+
+
+ 
