@@ -137,7 +137,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('btn-export').addEventListener('click', exportJSON);
     document.getElementById('import-file').addEventListener('change', importJSON);
     document.getElementById('btn-word').addEventListener('click', exportWord);
-    document.getElementById('btn-google').addEventListener('click', sendToGoogleSheet);
 });
 
 function initNavigation() {
@@ -963,20 +962,29 @@ async function sendToGoogleSheet() {
             dataMentahJSON: JSON.stringify(formData)
         };
 
+        // --- KEMASKINI BAHAGIAN INI (Fetch API) ---
+        // Menggunakan text/plain untuk mengelak sekatan CORS ketat oleh Google
         const response = await fetch(GOOGLE_SHEET_WEB_APP_URL, {
             method: 'POST',
-            mode: 'no-cors', // Atasi isu CORS dari browser client ke Google
             headers: {
-                'Content-Type': 'application/json',
+                'Content-Type': 'text/plain;charset=utf-8', 
             },
             body: JSON.stringify(sheetPayload)
         });
         
-        showToast("Laporan anda telah selamat direkodkan ke pelayan kementerian!");
+        // Membaca respons JSON dari Google Apps Script (Code.gs)
+        const result = await response.json();
+        
+        if (result.status === "success") {
+            showToast("Laporan anda telah selamat direkodkan ke pelayan kementerian!");
+        } else {
+            console.error("Ralat Google Sheet:", result.message);
+            alert("Ralat dari sistem pangkalan data: " + result.message);
+        }
         
     } catch (error) {
-        console.error(error);
-        alert("Gagal menghantar laporan. Sila periksa capaian internet anda.");
+        console.error("Ralat Rangkaian:", error);
+        alert("Gagal menghantar laporan. Sila periksa capaian internet anda atau semak Console.");
     } finally {
         btn.innerHTML = originalHtml;
         btn.classList.remove('opacity-80', 'cursor-not-allowed');
