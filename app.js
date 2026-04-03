@@ -910,7 +910,7 @@ function exportWord() {
 // ==== HANTAR KE GOOGLE SHEETS ====
 
 async function sendToGoogleSheet() {
-    if (GOOGLE_SHEET_WEB_APP_URL === "https://script.google.com/macros/s/AKfycbxXgg-1o0IDo3QyQs0LDWytGbkjblnpODSW16FLfTMjg9TuUnQwfs15DEYKVfGhsgur/exec") {
+    if (GOOGLE_SHEET_WEB_APP_URL === "") {
         alert("PERHATIAN: Fungsi belum dipautkan!\n\nSila bina satu skrip Google Apps (rujuk panduan) dan letakkan URL tersebut di dalam fail app.js pada pembolehubah GOOGLE_SHEET_WEB_APP_URL.");
         return;
     }
